@@ -3,6 +3,7 @@ import '@/styles/style.css'
 import { Inter } from 'next/font/google'
 import localFont from 'next/font/local'
 import Header from '@/components/ui/header'
+import Footer from '@/components/ui/footer'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -32,7 +33,10 @@ export default function RootLayout({ children }) {
       <body className={`${inter.variable} ${aspekta.variable} font-inter antialiased bg-slate-900 text-slate-200 tracking-tight`}>
         <div className="flex flex-col min-h-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
           <Header />
-          {children}
+          <main className='grow'>
+            {children}
+          </main>
+          <Footer />
         </div>
       </body>
     </html>
