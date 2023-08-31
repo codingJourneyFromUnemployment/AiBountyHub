@@ -1,8 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
-import Sponsor from '@/public/images/sponsor.png'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 

@@ -1,7 +1,7 @@
 import Hero from '@/components/hero'
 import SearchBar from '@/components/searchbar'
 import Boxes from '@/components/boxes'
-import PostsList from './posts-list'
+import PostsList from '../components/posts-list'
 
 export const metadata = {
   title: 'Ai Bounty Hub',
