@@ -1,19 +1,27 @@
+'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
 import Sponsor from '@/public/images/sponsor.png'
 import axios from 'axios'
+import { useEffect, useState } from 'react'
 
-async function getAllPosts() {
-  try {
-    const response = await axios.get('https://raw.githubusercontent.com/cruip/cruip-dummy/main/community-posts.json')
-    return response.data
-  } catch (error) {
-    console.error(error)
+
+function PostsList() {
+  const [posts, setPosts] = useState([])
+
+  async function getAllPosts() {
+    try {
+      const response = await axios.get('https://raw.githubusercontent.com/cruip/cruip-dummy/main/community-posts.json')
+      setPosts(response.data)
+    } catch (error) {
+      console.error(error)
+    }
   }
-}
 
-async function PostsList() {
-  const posts = await getAllPosts()
+  useEffect(() => {
+    getAllPosts()
+  }, [])
 
   return (
     <div>
@@ -113,20 +121,7 @@ async function PostsList() {
               </div>
             )
           })}
-          {/* Sponsored item */}
-          <div className="px-5 py-3 -order-1">
-            <div className="flex items-center space-x-4">
-              <Image className="shrink-0 w-14 h-14 rounded-full" src={Sponsor} width={56} height={56} alt="Sponsor" />
-              <div>
-                <div className="mb-1">
-                  <a className="text-slate-200 font-semibold hover:text-white transition duration-150 ease-in-out" href="#0">
-                    Bulky - The Most Accurate Online Bulk Email Verification Service 🚀
-                  </a>
-                </div>
-                <div className="text-xs text-slate-500 italic">Promoted</div>
-              </div>
-            </div>
-          </div>
+        
         </div>
 
         {/* Show more */}
