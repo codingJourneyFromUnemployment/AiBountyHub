@@ -4,7 +4,7 @@ import Logo from '@/public/images/logo.svg'
 
 function Footer(){
   return (
-    <footter className="border-t border-slate-800">
+    <footer className="border-t border-slate-800">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="py-8">
           {/* Top area */}
@@ -97,7 +97,7 @@ function Footer(){
 
       </div>
 
-    </footter>
+    </footer>
   )
 }
 

@@ -15,3 +15,7 @@
     direction: rtl;
   }
 }
+
+.ql-editor.ql-blank::before {
+  color: #fff !important;
+}
