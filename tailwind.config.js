@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        editor_background:'hsl(222.22,47.37%,11.18%)'
+      },
       fontFamily: {
         inter: ['var(--font-inter)', 'sans-serif'],
         'aspekta': ['var(--font-aspekta)', 'sans-serif'],

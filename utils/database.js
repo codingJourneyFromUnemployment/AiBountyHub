@@ -1,6 +1,17 @@
-export default async function getAllPosts() {
-  const res = await fetch('https://raw.githubusercontent.com/cruip/cruip-dummy/main/community-posts.json')
+import mongoose from "mongoose";
 
-  if (!res.ok) throw new Error('failed to fetch data')
-  return res.json()
+let isConnected = false;
+
+export const connectToAtlas = async () => {
+  if(isConnected) {
+    console.log("=> using existing database connection");
+    return;
+  }
+  try {
+    await mongoose.connect(process.env.MONGO_URI);
+    isConnected = true;
+    console.log("MongoDB is connected.");
+  } catch (error) {
+    console.error(error.message);
+  }
 }

@@ -5,6 +5,7 @@ import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css"
 import ImageUploader from "quill-image-uploader";
 import 'quill-image-uploader/dist/quill.imageUploader.min.css';
+import imageUploadHandler from "@/utils/imageuploadhandler";
 
 Quill.register("modules/imageUploader", ImageUploader);
 
@@ -42,29 +43,7 @@ class TextEditor extends Component {
     ],
     // # 4 Add module and upload function
     imageUploader: {
-      upload: (file) => {
-        return new Promise((resolve, reject) => {
-          const formData = new FormData();
-          formData.append("image", file);
-
-          fetch(
-            "https://api.imgbb.com/1/upload?key=334ecea9ec1213784db5cb9a14dac265",
-            {
-              method: "POST",
-              body: formData
-            }
-          )
-            .then((response) => response.json())
-            .then((result) => {
-              console.log(result);
-              resolve(result.data.url);
-            })
-            .catch((error) => {
-              reject("Upload failed");
-              console.error("Error:", error);
-            });
-        });
-      }
+      upload: imageUploadHandler
     }
   };
 
@@ -85,11 +64,16 @@ class TextEditor extends Component {
 
   render() {
     return (
-      <div className="flex flex-col items-center absolute top-32 w-full h-full space-y-20">
+      <div className="flex flex-col items-center absolute top-24 w-full h-full">
+        <input 
+          className="w-2/3 mt-0 mb-2 rounded border-white bg-editor_background md:max-w-3xl"
+          type="text"
+          placeholder="Post Title"
+          />
         <ReactQuill
           onChange={this.handleChange}
           theme="snow"
-          className="h-1/3 w-2/3 md:max-w-3xl md:h-1/2"
+          className="h-1/3 w-2/3 mb-20 md:mb-12 md:max-w-3xl md:h-1/2"
           modules={this.modules}
           formats={this.formats}
           placeholder="Write your needs here..."
@@ -109,4 +93,5 @@ class TextEditor extends Component {
 }
 
 export default TextEditor
+
 

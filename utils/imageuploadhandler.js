@@ -1,27 +1,23 @@
+import axios from "axios";
 
-// Require the cloudinary library
-const cloudinary = require('cloudinary').v2;
-
-// Return "https" URLs by setting secure: true
-cloudinary.config({
-  secure: true
-});
-
-// Log the configuration
-console.log(cloudinary.config());
-
-async function imageUploadHandler (imagePath) {
-  const options = {
-    use_filename: true,
-    unique_filename: false,
-    overwrite: true,
-  }
-
+async function imageUploadHandler(file) {
   try {
-    const result = await cloudinary.uploader.upload(imagePath, options);
-    console.log(result);
-    return result.public_id;
+    const formData = new FormData();
+    formData.append("image", file);
+    const res = await axios.post(
+      `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_API_KEY}`,
+      formData
+    );
+
+    if (res.data && res.data.data && res.data.data.url) {
+      return res.data.data.url;
+    } else {
+      throw new Error("Unexpected response format from the server");
+    }
   } catch (error) {
-    console.log(error)
+    console.error(error);
+    throw new Error("Upload failed"); 
   }
 }
+
+export default imageUploadHandler;
