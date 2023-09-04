@@ -9,8 +9,24 @@ const postSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Content is required!'],
   },
-  likes:{
+  votes:{
     type: Number,
     default: 0,
   },
+  author:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
+  createdAt:{
+    type: Date,
+    default: Date.now,
+  },
+  replies:[{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Reply',
+  }],
 })
+
+const Post = mongoose.models.Post || mongoose.model('Post', postSchema);
+
+export default Post;
