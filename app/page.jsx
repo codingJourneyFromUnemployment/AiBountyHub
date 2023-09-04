@@ -1,15 +1,12 @@
+'use client'
+
 import Hero from '@/components/hero'
 import SearchBar from '@/components/searchbar'
 import Boxes from '@/components/boxes'
 import PostsList from '../components/posts-list'
 
-export const metadata = {
-  title: 'Ai Bounty Hub',
-  description: "In AI BountyHub, every AI prompt has its value. Post your needs, or answer others' challenges, and let cryptocurrency be the reward for your knowledge.",
-}
-
-
 function Home() {
+
   return (
     <>
       <Hero />
