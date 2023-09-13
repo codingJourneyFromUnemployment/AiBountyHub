@@ -1,7 +1,8 @@
 'use client'
 
 import { signIn , useSession } from 'next-auth/react'
-import { useConect, useAccount } from 'wagmi'
+import { useAccount, useConnect, useEnsName } from 'wagmi'
+import { InjectedConnector } from 'wagmi/connectors/injected'
 import Link from 'next/link'
 import HeaderLogo from '@/components/ui/header-logo'
 import { ethers } from 'ethers';
@@ -9,10 +10,14 @@ import { useEffect, useState } from 'react';
 import { set } from 'mongoose';
 
 function Header() {
+  const { address, isConnected } = useAccount()
+  const { data: ensName } = useEnsName({ address })
+  const { connect, connectors, error } = useConnect()
   const { data: session, status } = useSession();
-  const [account, setAccount] = useState(null);
-	const [signer, setSigner] = useState(null);
-  const [isConnectig, setIsConnecting] = useState(false);
+  
+  // const [account, setAccount] = useState(null);
+	// const [signer, setSigner] = useState(null);
+  // const [isConnectig, setIsConnecting] = useState(false);
 
   function shortenAddress(address, chars = 4) {
     if (!address) return "";
@@ -20,9 +25,6 @@ function Header() {
     const suffix = address.substring(address.length - chars);
     return `${prefix}...${suffix}`;
   }
-
-  const [ {data: connectData}, connect] = useConect();
-  const [ {data: accountData}, getAccount] = useAccount();
 
   async function handleLogin() {
     if (!window.ethereum) {

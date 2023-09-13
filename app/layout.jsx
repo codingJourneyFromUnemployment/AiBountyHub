@@ -5,6 +5,8 @@ import localFont from 'next/font/local'
 import Header from '@/components/ui/header'
 import Footer from '@/components/ui/footer'
 import Provider from '@/components/Provider'
+import { Config } from '@/components/wagmi'
+import { WagmiConfig } from 'wagmi'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -33,13 +35,15 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${inter.variable} ${aspekta.variable} font-inter antialiased bg-slate-900 text-slate-200 tracking-tight`}>
         <Provider>
-          <div className="flex flex-col min-h-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
-            <Header />
-            <main className='grow'>
-              {children}
-            </main>
-            <Footer />
-          </div>
+          <WagmiConfig config={Config}>
+            <div className="flex flex-col min-h-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
+              <Header />
+              <main className='grow'>
+                {children}
+              </main>
+              <Footer />
+            </div>
+          </WagmiConfig>
         </Provider>
       </body>
     </html>
