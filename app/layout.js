@@ -2,6 +2,7 @@ import '@/styles/style.css'
 
 import { Inter } from 'next/font/google'
 import localFont from 'next/font/local'
+import Provider from '@/components/provider'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -29,7 +30,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${inter.variable} ${aspekta.variable} font-inter antialiased bg-slate-900 text-slate-200 tracking-tight`}>
-        { children }
+        <Provider>
+          {children}
+        </Provider>
       </body>
     </html>
   )

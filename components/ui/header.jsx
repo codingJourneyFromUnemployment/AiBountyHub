@@ -4,6 +4,7 @@ import Link from 'next/link'
 import HeaderLogo from '@/components/ui/header-logo'
 import { ethers } from 'ethers';
 import { useEffect, useState } from 'react';
+import { signIn } from "next-auth/react"
 
 function Header() {
 
@@ -36,6 +37,10 @@ function Header() {
 			setAccount(accounts[0]);
 			const signer = provider.getSigner();
 			setSigner(signer);
+			signIn('credentials', { 
+            callbackUrl: '/',  
+            address: accounts[0]  
+        });
 		} catch (error) {
 			clearTimeout(timer);
 			console.log(error);
@@ -44,10 +49,6 @@ function Header() {
 			setIsConnecting(false);
 		}
 	}
-
-	useEffect(() => {
-		console.log(`account changed to ${account}`);
-	}, [account]);
 
 	useEffect(() => {
 		try {
